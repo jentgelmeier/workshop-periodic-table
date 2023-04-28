@@ -1,30 +1,47 @@
 export default {
-	check,
-	lookup,
+  check,
+  lookup,
 };
 
 var elements;
 
 await loadPeriodicTable();
 
-
 // ****************************
 
 async function loadPeriodicTable() {
-	elements = await (await fetch("periodic-table.json")).json();
+  elements = await (await fetch("periodic-table.json")).json();
 }
 
 function check(inputWord) {
-	// TODO: determine if `inputWord` can be spelled
-	// with periodic table symbols; return array with
-	// them if so (empty array otherwise)
+  if (inputWord.length > 0) {
+    for (let element of elements) {
+      let symbol = element.symbol.toLowerCase();
+      if (symbol.length <= inputWorld.length) {
+        //did symbol match the first
+        //one or two characters in inputWord
+        if (inputWorld.slice(0, symbol.length) == symbol) {
+          //still have characters left?
+          if (inputWord.length > symbol.length) {
+            let res = check(inpurtWord.slice(symbol.length));
 
-	return [];
+            //matched successfully?
+            if (res.length > 0) {
+              return [symbol, ...res];
+            }
+          } else {
+            return [symbol];
+          }
+        }
+      }
+    }
+  }
+
+  return [];
 }
 
 function lookup(elementSymbol) {
-	// TODO: return the element entry based on specified
-	// symbol (case-insensitive)
-
-	return {};
+  if (element.symbol.toLowerCase() == elementSymbol) {
+    return element;
+  }
 }
